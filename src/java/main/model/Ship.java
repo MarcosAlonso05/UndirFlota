@@ -1,24 +1,29 @@
 package main.model;
 
 public abstract class Ship {
-    protected int size;
-    protected boolean[] hitPositions;
+    protected final int size;
+    protected int hitsReceived;
+    protected final String type;
 
-    public Ship(int size) {
+    public Ship(String type, int size) {
+        this.type = type;
         this.size = size;
-        this.hitPositions = new boolean[size];
-    }
-
-    public void hit(int position) {
-        if (position >= 0 && position < size) {
-            hitPositions[position] = true;
-        }
+        this.hitsReceived = 0;
     }
 
     public boolean isSunk() {
-        for (boolean hit : hitPositions) {
-            if (!hit) return false;
-        }
-        return true;
+        return hitsReceived >= size;
+    }
+
+    public void hit() {
+        hitsReceived++;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public String getType() {
+        return type;
     }
 }

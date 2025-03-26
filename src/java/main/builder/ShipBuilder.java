@@ -3,28 +3,29 @@ package main.builder;
 import main.model.*;
 
 public class ShipBuilder implements IShipBuilder {
-    private Ship ship;
+    private String type;
 
     @Override
-    public IShipBuilder setBattleship() {
-        this.ship = new Battleship();
-        return this;
-    }
-
-    @Override
-    public IShipBuilder setFrigate() {
-        this.ship = new Frigate();
-        return this;
-    }
-
-    @Override
-    public IShipBuilder setCanoe() {
-        this.ship = new Canoe();
+    public IShipBuilder ofType(String type) {
+        this.type = type;
         return this;
     }
 
     @Override
     public Ship build() {
-        return this.ship;
+        if (type == null) {
+            throw new IllegalStateException("Debe especificar el tipo de barco");
+        }
+
+        switch (type.toLowerCase()) {
+            case "battleship":
+                return new Battleship();
+            case "frigate":
+                return new Frigate();
+            case "canoe":
+                return new Canoe();
+            default:
+                throw new IllegalArgumentException("Tipo de barco no válido: " + type);
+        }
     }
 }

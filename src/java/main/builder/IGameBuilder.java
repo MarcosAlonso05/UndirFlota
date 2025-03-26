@@ -1,10 +1,9 @@
 package main.builder;
 
 import main.model.Game;
-import main.model.Player;
 
 public interface IGameBuilder {
-    IGameBuilder setPlayer1(Player player1);
-    IGameBuilder setPlayer2(Player player2);
+    IGameBuilder addPlayer(String name);
+    IGameBuilder withShipForPlayer(String playerName, String shipType, String shipName);
     Game build();
 }
