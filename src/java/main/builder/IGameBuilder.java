@@ -4,6 +4,6 @@ import main.model.Game;
 
 public interface IGameBuilder {
     IGameBuilder addPlayer(String name);
-    IGameBuilder withShipForPlayer(String playerName, String shipType, String shipName);
+    IGameBuilder addShipToPlayer(String playerName, String shipType, int x, int y, boolean isHorizontal);
     Game build();
 }
