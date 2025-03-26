@@ -57,4 +57,12 @@ public class Player {
     public List<Ship> getShips() {
         return ships;
     }
+
+    public Board getPrimaryBoard() {
+        return primaryBoard;
+    }
+
+    public Board getTrackingBoard() {
+        return trackingBoard;
+    }
 }
