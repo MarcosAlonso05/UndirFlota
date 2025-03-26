@@ -1,13 +1,29 @@
 package main.model;
 
-public abstract class Ship {
-    protected final int size;
-    protected int hitsReceived;
-    protected final String type;
+import javax.persistence.*;
 
-    public Ship(String type, int size) {
-        this.type = type;
-        this.size = size;
+@MappedSuperclass
+public abstract class Ship {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
+    @Transient
+    protected final int size;
+
+    protected int hitsReceived;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ship_type_id")
+    protected ShipType shipType;
+
+    public Ship() {
+        this.size = 0;
+    }
+
+    public Ship(ShipType shipType) {
+        this.shipType = shipType;
+        this.size = shipType.getSize();
         this.hitsReceived = 0;
     }
 
@@ -24,6 +40,18 @@ public abstract class Ship {
     }
 
     public String getType() {
-        return type;
+        return shipType != null ? shipType.getName() : "";
+    }
+
+    public ShipType getShipType() {
+        return shipType;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getHitsReceived() {
+        return hitsReceived;
     }
 }

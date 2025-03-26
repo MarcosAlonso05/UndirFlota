@@ -1,11 +1,21 @@
 package main.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+@Entity
 public class Battleship extends Ship {
-    private final boolean[] compartments;
+    @Transient
+    private boolean[] compartments;
 
     public Battleship() {
-        super("Battleship", 5);
+        super(new ShipType("Battleship", 5));
         this.compartments = new boolean[5];
+    }
+
+    public Battleship(ShipType shipType) {
+        super(shipType);
+        this.compartments = new boolean[shipType.getSize()];
     }
 
     @Override
@@ -27,5 +37,9 @@ public class Battleship extends Ship {
             }
         }
         return true;
+    }
+
+    public boolean[] getCompartments() {
+        return compartments;
     }
 }
